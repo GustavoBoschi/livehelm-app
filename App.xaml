@@ -1,0 +1,470 @@
+<Application x:Class="LiveHelmApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <!-- Paleta: grafite quase preto com acento azul safira. -->
+        <SolidColorBrush x:Key="Fundo" Color="#0B0B10" />
+        <SolidColorBrush x:Key="Cartao" Color="#13131A" />
+        <SolidColorBrush x:Key="Campo" Color="#0D0D13" />
+        <SolidColorBrush x:Key="Elevado" Color="#1B1B25" />
+        <SolidColorBrush x:Key="ElevadoSobre" Color="#262633" />
+        <SolidColorBrush x:Key="Borda" Color="#1AFFFFFF" />
+        <SolidColorBrush x:Key="BordaForte" Color="#33FFFFFF" />
+        <SolidColorBrush x:Key="Texto" Color="#E8E6F0" />
+        <SolidColorBrush x:Key="Suave" Color="#8E8BA2" />
+        <SolidColorBrush x:Key="Acento" Color="#2F6FEB" />
+        <SolidColorBrush x:Key="AcentoClaro" Color="#6E9BFF" />
+        <SolidColorBrush x:Key="Ok" Color="#4ADE80" />
+        <SolidColorBrush x:Key="Erro" Color="#FF7B7B" />
+        <SolidColorBrush x:Key="Aviso" Color="#FFC94A" />
+        <!-- Derivadas do acento e do fundo: Tema.Aplicar muda a cor destes pincéis em tempo de execução. -->
+        <SolidColorBrush x:Key="AcentoTexto" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="AcentoFundo" Color="#142F6FEB" />
+        <SolidColorBrush x:Key="AcentoBorda" Color="#552F6FEB" />
+        <SolidColorBrush x:Key="AcentoAba" Color="#382F6FEB" />
+        <SolidColorBrush x:Key="FundoChat" Color="#0A0A0F" />
+
+        <!-- Largura da coluna dos botões rápidos de cada mensagem do chat (zero no modo estreito). -->
+        <GridLength x:Key="LarguraRapidas">70</GridLength>
+
+        <!-- Ícones de traço (viewBox 24x24), usados com Stroke. -->
+        <Geometry x:Key="IconeBanir">M12,3 A9,9 0 1 1 11.99,3 Z M5.6,18.4 L18.4,5.6</Geometry>
+        <Geometry x:Key="IconeTempo">M12,3 A9,9 0 1 1 11.99,3 Z M12,7 L12,12 L15.5,14.5</Geometry>
+        <Geometry x:Key="IconeLixeira">M5,7 L19,7 M9,7 L9,4 L15,4 L15,7 M7,7 L8,20 L16,20 L17,7 M10,11 L10,17 M14,11 L14,17</Geometry>
+        <Geometry x:Key="IconeGlobo">M12,3 A9,9 0 1 1 11.99,3 Z M3,12 L21,12 M12,3 C8,7 8,17 12,21 M12,3 C16,7 16,17 12,21</Geometry>
+        <Geometry x:Key="IconeEngrenagem">M12,8.5 A3.5,3.5 0 1 1 11.99,8.5 Z M12,2.5 L12,5 M12,19 L12,21.5 M2.5,12 L5,12 M19,12 L21.5,12 M5.3,5.3 L7.1,7.1 M16.9,16.9 L18.7,18.7 M5.3,18.7 L7.1,16.9 M16.9,7.1 L18.7,5.3</Geometry>
+        <Geometry x:Key="IconeLupa">M11,4 A7,7 0 1 1 10.99,4 Z M16,16 L21,21</Geometry>
+        <Geometry x:Key="IconeFixar">M9,3 L15,3 M10,3 L10,10 L7,14 L17,14 L14,10 L14,3 M12,14 L12,21</Geometry>
+        <Geometry x:Key="IconePergunta">M12,3 A9,9 0 1 1 11.99,3 Z M9.3,9.5 C9.3,7.2 14.7,7.2 14.7,9.7 C14.7,11.8 12,11.6 12,14 M12,16.5 L12,17.2</Geometry>
+
+        <!-- Ícones das plataformas (viewBox 24x24; F1 = preenchimento não zero, como no SVG). -->
+        <Geometry x:Key="IconeTwitch">F1 M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z</Geometry>
+        <Geometry x:Key="IconeYouTube">F1 M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z</Geometry>
+        <Geometry x:Key="IconeKick">F1 M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z</Geometry>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+        </Style>
+
+        <!-- Painel: cartão arredondado onde cada seção mora. -->
+        <Style x:Key="EstiloCartao" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource Cartao}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Borda}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+        </Style>
+
+        <Style x:Key="Rotulo" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource Suave}" />
+            <Setter Property="Margin" Value="0,0,0,4" />
+        </Style>
+
+        <!-- Botão padrão. -->
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="Background" Value="{DynamicResource Elevado}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Borda}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Moldura" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{DynamicResource ElevadoSobre}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Moldura" Property="Opacity" Value="0.4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Ação principal (azul safira). -->
+        <Style x:Key="BotaoPrincipal" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{DynamicResource Acento}" />
+            <Setter Property="Foreground" Value="{DynamicResource AcentoTexto}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Padding" Value="16,7" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource AcentoClaro}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Botão sem fundo: só acende ao passar o mouse (atalhos, ajustes, cabeçalhos). -->
+        <Style x:Key="BotaoPlano" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Moldura" Background="Transparent" CornerRadius="7" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="#1FFFFFFF" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Campo de texto; a dica vem do Tag e some quando há texto. -->
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="CaretBrush" Value="{StaticResource Texto}" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource Acento}" />
+            <Setter Property="Background" Value="{DynamicResource Campo}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Borda}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13.5" />
+            <Setter Property="Padding" Value="10,7" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Moldura" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" />
+                                <TextBlock x:Name="Dica" Text="{TemplateBinding Tag}" Foreground="{StaticResource Suave}" Opacity="0.75"
+                                           Margin="11,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False" Visibility="Collapsed"
+                                           FontSize="{TemplateBinding FontSize}" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="Dica" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Moldura" Property="BorderBrush" Value="{DynamicResource Acento}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="CaretBrush" Value="{StaticResource Texto}" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource Acento}" />
+            <Setter Property="Background" Value="{DynamicResource Campo}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Borda}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13.5" />
+            <Setter Property="Padding" Value="10,7" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="Moldura" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Moldura" Property="BorderBrush" Value="{DynamicResource Acento}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Plataforma: caixinha com o ícone e uma bolinha na cor dela (cheia = marcada). A cor vem do Tag e o ícone é o conteúdo. -->
+        <Style x:Key="IconeDePlataforma" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource Suave}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="Moldura" CornerRadius="8" BorderThickness="1" BorderBrush="{StaticResource Borda}"
+                                Background="{DynamicResource Campo}" Padding="10,0" Height="32">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <ContentPresenter VerticalAlignment="Center" />
+                                <Ellipse x:Name="Bolinha" Width="8" Height="8" Margin="8,0,0,0" Fill="Transparent"
+                                         Stroke="{StaticResource Suave}" StrokeThickness="1.2" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource Texto}" />
+                                <Setter TargetName="Bolinha" Property="Fill" Value="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="Bolinha" Property="Stroke" Value="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="Moldura" Property="BorderBrush" Value="{StaticResource BordaForte}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{DynamicResource Elevado}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Segmento (filtro do chat): só um fica aceso. -->
+        <Style x:Key="Segmento" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource Suave}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Moldura" CornerRadius="6" Padding="10,4" Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{DynamicResource ElevadoSobre}" />
+                                <Setter Property="Foreground" Value="{StaticResource Texto}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource Texto}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Aba do chat: ao selecionar acende na cor dela. A cor vem do BorderBrush (contorno, ícone e texto) e o Background é o tom suave de fundo. -->
+        <Style x:Key="AbaDoChat" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="{StaticResource Suave}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Margin" Value="1,0" />
+            <Setter Property="Padding" Value="9,4" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="Moldura" CornerRadius="6" Padding="{TemplateBinding Padding}" BorderThickness="1" BorderBrush="Transparent" Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource Texto}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="Moldura" Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Foreground" Value="{Binding BorderBrush, RelativeSource={RelativeSource Self}}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Menu de contexto e dica escuros. -->
+        <Style TargetType="ContextMenu">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContextMenu">
+                        <Border Background="{DynamicResource Elevado}" BorderBrush="{StaticResource BordaForte}" BorderThickness="1"
+                                CornerRadius="8" Padding="4">
+                            <StackPanel IsItemsHost="True" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border x:Name="Moldura" CornerRadius="6" Padding="12,7" Background="Transparent">
+                            <ContentPresenter ContentSource="Header" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{DynamicResource ElevadoSobre}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Separator">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Border Height="1" Margin="6,4" Background="{StaticResource Borda}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ToolTip">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="Background" Value="{DynamicResource Elevado}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BordaForte}" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="Padding" Value="9,5" />
+        </Style>
+
+        <!-- Botão de ícone das linhas do chat: aparece só com o mouse na mensagem. -->
+        <Style x:Key="BotaoIconeLinha" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource Suave}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Width" Value="22" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Moldura" Background="Transparent" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="#26FFFFFF" />
+                                <Setter Property="Foreground" Value="{StaticResource Texto}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.25" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Chave de painel na barra de cima: ponto cheio = painel visível. -->
+        <Style x:Key="ChipDePainel" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource Suave}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="Moldura" CornerRadius="8" Padding="10,5" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse x:Name="Ponto" Width="6" Height="6" Margin="0,1,7,0" Fill="Transparent" Stroke="{StaticResource Suave}" StrokeThickness="1" />
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{DynamicResource Elevado}" />
+                                <Setter TargetName="Ponto" Property="Fill" Value="{DynamicResource Acento}" />
+                                <Setter TargetName="Ponto" Property="Stroke" Value="{DynamicResource Acento}" />
+                                <Setter Property="Foreground" Value="{StaticResource Texto}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Moldura" Property="Background" Value="{DynamicResource ElevadoSobre}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Interruptor (liga e desliga) das configurações. -->
+        <Style x:Key="Interruptor" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource Texto}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="Trilho" Width="34" Height="18" CornerRadius="9" Background="{DynamicResource ElevadoSobre}">
+                                <Ellipse x:Name="Bola" Width="12" Height="12" HorizontalAlignment="Left" Margin="3,0" Fill="{StaticResource Suave}" />
+                            </Border>
+                            <ContentPresenter Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Trilho" Property="Background" Value="{DynamicResource Acento}" />
+                                <Setter TargetName="Bola" Property="HorizontalAlignment" Value="Right" />
+                                <Setter TargetName="Bola" Property="Fill" Value="{DynamicResource AcentoTexto}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Barra de rolagem fina e escura. -->
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="10" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Track x:Name="PART_Track" IsDirectionReversed="True">
+                            <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0" /></Track.DecreaseRepeatButton>
+                            <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0" /></Track.IncreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb>
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Border Background="#33FFFFFF" CornerRadius="4" Margin="2" />
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Botão de perigo (silêncio de emergência, encerrar): vermelho quando aceso. -->
+        <Style x:Key="BotaoPerigo" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="{StaticResource Erro}" />
+            <Setter Property="BorderBrush" Value="#55FF7B7B" />
+        </Style>
+    </Application.Resources>
+</Application>

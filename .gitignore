@@ -1,0 +1,8 @@
+bin
+obj
+.vs
+*.user
+LiveHelm-App
+LiveHelm-App.lnk
+*.zip
+.DS_Store
