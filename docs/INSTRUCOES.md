@@ -74,14 +74,18 @@ A conta **Bot** é opcional. Ela só serve se você quiser que as mensagens envi
 
 ## 3. Criar as ações no Streamer.bot
 
-O programa pede ao Streamer.bot que execute **ações**. Cada ação é criada **uma única vez**, com o **nome exato** (maiúsculas,
-dois-pontos e espaço contam). Sem as ações, o chat funciona só para **ler**.
+O programa pede ao Streamer.bot que execute **ações**. Cada ação é criada **uma única vez**. Sem as ações, o chat funciona só para **ler**.
+
+> **O nome da ação precisa ser EXATAMENTE igual ao das Instruções.** O programa compara letra por letra: maiúsculas e minúsculas, o
+> dois-pontos, o espaço depois dele e qualquer espaço sobrando no fim contam. `Painel: YouTube` funciona; `Painel: Youtube`,
+> `Painel:YouTube`, `painel: youtube` e `Painel: YouTube ` (com um espaço no fim) **não** funcionam. O jeito mais seguro é **copiar o nome
+> daqui e colar** no campo **Name**.
 
 ### Receita: criar uma ação
 
 1. No Streamer.bot, vá em **Actions & Queues > Actions**.
 2. Clique com o botão direito na área de ações e escolha **Add**.
-3. No campo **Name**, escreva o nome exato da ação (por exemplo `Painel: Twitch`) e confirme.
+3. No campo **Name**, cole o nome da ação **exatamente** como está nestas Instruções (por exemplo `Painel: Twitch`) e confirme.
 4. Clique na ação nova para selecioná-la. O painel **Sub-Actions** (à direita) fica ativo.
 5. Clique com o botão direito no painel de sub-ações e escolha a sub-ação indicada em cada receita abaixo. Para configurar uma
    sub-ação, dê dois cliques nela.
@@ -166,7 +170,7 @@ atual: abra o `?`, copie o código de novo e cole na sub-ação (**Save and Comp
 #### Opcional, sem código
 
 Enviar, silenciar e banir também existem como sub-ações prontas em cada plataforma. Se preferir, crie uma ação por combinação, com a
-sub-ação nativa e o nome exato, por exemplo:
+sub-ação nativa e o nome **exatamente** igual, por exemplo:
 
 - `Painel: Enviar Twitch`: `Twitch > Chat > Send Message` com `%mensagem%`.
 - `Painel: Silenciar Kick`: o *timeout* da Kick com `%usuario%` e `%segundos%`.
@@ -245,7 +249,7 @@ nas configurações. No Streamer.bot, o servidor precisa estar escutando na rede
 | Bolinha **vermelha** | O Streamer.bot está fechado ou o **WebSocket Server** está desligado. Abra-o e ligue (seção 2.3). Confira também o endereço e a porta nas configurações. |
 | O Streamer.bot recusa a conexão | A senha está errada ou faltando. Coloque a mesma senha do **Password** do Streamer.bot nas configurações. O painel mostra o motivo da recusa. |
 | Bolinha **amarela** | Falta alguma conexão: uma das plataformas (entre com a conta dela, seção 2.2) ou o OBS (seção 4). Passe o mouse na bolinha para ver qual. A cor conta as três plataformas e o OBS, então, se você não usa alguma delas, a bolinha continua amarela e dá para ignorar. |
-| Aparece "Faltam ações: …" | O Streamer.bot não tem uma ação com o nome **exato** da plataforma (`Painel: Twitch`, `Painel: Kick` ou `Painel: YouTube`): o programa compara letra por letra, então `Painel: Youtube`, `Painel:YouTube` ou um espaço no fim não valem. Copie o nome das Instruções, confirme com **Ok** a janela da sub-ação e espere até 15 s (o programa relê a lista a cada 15 s). O botão do aviso abre a ajuda de como criar. Se você não usa aquela plataforma, o aviso é só um lembrete. |
+| Aparece "Faltam ações: …" | O Streamer.bot não tem uma ação com o nome **EXATAMENTE igual** ao da plataforma (`Painel: Twitch`, `Painel: Kick` ou `Painel: YouTube`): o programa compara letra por letra, então `Painel: Youtube`, `Painel:YouTube` ou um espaço no fim não valem. Copie o nome das Instruções, confirme com **Ok** a janela da sub-ação e espere até 15 s (o programa relê a lista a cada 15 s). O botão do aviso abre a ajuda de como criar. Se você não usa aquela plataforma, o aviso é só um lembrete. |
 | O título do YouTube não muda (e não aparece erro) | Duas causas comuns: o **Broadcast** da sub-ação `YouTube > Set Title` está em **From Variable** (troque para **All**), ou o YouTube não está conectado no Streamer.bot (a janela da sub-ação mostra **Not Connected** e o YouTube aparece desconectado na bolinha de conexões; entre em `Platforms > YouTube > Accounts`, seção 2.2). |
 | Cenas vazias, Saúde sem dados ou "Desconectado" no OBS | O servidor WebSocket do OBS está desligado, o endereço está errado ou a senha está faltando (seção 4). |
 | Alertas de seguidor da Kick não chegam | Ligue a conta da Kick também no site do Streamer.bot (**Account > Connections**), além do login no aplicativo. |

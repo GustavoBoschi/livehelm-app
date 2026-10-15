@@ -95,7 +95,7 @@ Você precisa de **Windows 10 ou 11**, do **Streamer.bot** (testado na versão 1
 ou mais novo**.
 
 1. **Streamer.bot:** entre com a conta de cada plataforma e ligue o servidor WebSocket (`Servers/Clients > WebSocket Server`).
-2. **Ações:** crie no Streamer.bot as ações `Painel: Twitch`, `Painel: Kick`, `Painel: YouTube` e `Painel: Chat` (a de chat é só colar
+2. **Ações:** crie no Streamer.bot as ações `Painel: Twitch`, `Painel: Kick`, `Painel: YouTube` e `Painel: Chat`, com o nome **EXATAMENTE igual** ao das Instruções (a de chat é só colar
    o código que o botão `?` do programa copia).
 3. **OBS:** ligue o servidor WebSocket (`Ferramentas > Configurações do servidor WebSocket`).
 4. **Programa:** baixe o `.zip` na página de *Releases*, extraia numa pasta e abra o `LiveHelm-App.exe`. Na engrenagem, confira os endereços e coloque as senhas, se houver.
