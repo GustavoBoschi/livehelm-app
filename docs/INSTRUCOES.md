@@ -124,8 +124,16 @@ Sub-ações (nessa ordem), com estes valores:
 | Sub-ação | Campo | Valor |
 |---|---|---|
 | `YouTube > Set Title` | título | `%tituloLive%` |
+| `YouTube > Set Title` | **Broadcast** | **`All`** |
 
 O YouTube não muda de categoria por aqui; só o título.
+
+> **Atenção ao campo Broadcast:** ele precisa ficar em **All**. Ao criar a sub-ação, a janela costuma vir em **From Variable**: o Streamer.bot
+> então lê a variável `broadcast.id`, que só existe quando a ação é disparada por um evento do YouTube. Como quem dispara a ação é o programa,
+> essa variável não existe e **o título não muda** (sem mostrar erro). Além disso, o YouTube precisa estar conectado no Streamer.bot
+> ([seção 2.2](#22-entrar-com-a-conta-de-cada-plataforma)): se a janela da sub-ação mostrar **Not Connected**, entre em
+> `Platforms > YouTube > Accounts`. O Streamer.bot também avisa que mudar as informações do YouTube é uma chamada "cara" (gasta cota da
+> API do YouTube), então mude o título com moderação.
 
 > **Dica:** você não precisa criar as três. Crie só as das plataformas que usa: o botão **Confirmar** do painel Live atualiza só as
 > plataformas ligadas no alto. O programa mostra o aviso "Faltam ações: …" enquanto alguma das três não existir; para quem não usa
@@ -237,7 +245,8 @@ nas configurações. No Streamer.bot, o servidor precisa estar escutando na rede
 | Bolinha **vermelha** | O Streamer.bot está fechado ou o **WebSocket Server** está desligado. Abra-o e ligue (seção 2.3). Confira também o endereço e a porta nas configurações. |
 | O Streamer.bot recusa a conexão | A senha está errada ou faltando. Coloque a mesma senha do **Password** do Streamer.bot nas configurações. O painel mostra o motivo da recusa. |
 | Bolinha **amarela** | Falta alguma conexão: uma das plataformas (entre com a conta dela, seção 2.2) ou o OBS (seção 4). Passe o mouse na bolinha para ver qual. A cor conta as três plataformas e o OBS, então, se você não usa alguma delas, a bolinha continua amarela e dá para ignorar. |
-| Aparece "Faltam ações: …" | A ação daquela plataforma (`Painel: Twitch`, `Painel: Kick` ou `Painel: YouTube`) não existe ou o nome está diferente. Confira maiúsculas, dois-pontos e espaço. O botão do aviso abre a ajuda de como criar. |
+| Aparece "Faltam ações: …" | O Streamer.bot não tem uma ação com o nome **exato** da plataforma (`Painel: Twitch`, `Painel: Kick` ou `Painel: YouTube`): o programa compara letra por letra, então `Painel: Youtube`, `Painel:YouTube` ou um espaço no fim não valem. Copie o nome das Instruções, confirme com **Ok** a janela da sub-ação e espere até 15 s (o programa relê a lista a cada 15 s). O botão do aviso abre a ajuda de como criar. Se você não usa aquela plataforma, o aviso é só um lembrete. |
+| O título do YouTube não muda (e não aparece erro) | Duas causas comuns: o **Broadcast** da sub-ação `YouTube > Set Title` está em **From Variable** (troque para **All**), ou o YouTube não está conectado no Streamer.bot (a janela da sub-ação mostra **Not Connected** e o YouTube aparece desconectado na bolinha de conexões; entre em `Platforms > YouTube > Accounts`, seção 2.2). |
 | Cenas vazias, Saúde sem dados ou "Desconectado" no OBS | O servidor WebSocket do OBS está desligado, o endereço está errado ou a senha está faltando (seção 4). |
 | Alertas de seguidor da Kick não chegam | Ligue a conta da Kick também no site do Streamer.bot (**Account > Connections**), além do login no aplicativo. |
 | Banir, silenciar ou enviar não faz nada | A ação `Painel: Chat` não existe, não compilou ou está sem o código. Cole o código do `?` de novo e use **Save and Compile**. |
