@@ -50,8 +50,9 @@ No Streamer.bot, vá em **Platforms** e entre com a conta do canal em cada plata
 - **Twitch:** `Platforms > Twitch > Accounts`, em **Broadcaster Account** aperte **Login** e aceite as permissões.
 - **YouTube:** `Platforms > YouTube > Accounts`, em **Broadcaster Account** aperte **Sign in with Google**, aceite as permissões e
   ligue **Auto Connect**.
-- **Kick:** `Platforms > Kick`, entre com a conta do canal. Se alertas de seguidor da Kick não chegarem, ligue também a conta da
-  Kick no site do Streamer.bot (**Account > Connections**), além do login no aplicativo.
+- **Kick:** `Platforms > Kick`, entre com a conta do canal. Depois ligue também a conta da Kick no site do Streamer.bot
+  (**Account > Connections**), pois as mensagens do chat e os alertas da Kick dependem desse login do site, além do login no
+  aplicativo. **Depois de conectar com o site, reinicie o Streamer.bot** (feche e abra de novo); sem isso ele não passa a receber a Kick.
 
 A conta **Bot** é opcional. Ela só serve se você quiser que as mensagens enviadas pelo programa saiam com o nome do bot (veja
 `USAR_BOT` na [seção 3](#painel-chat-chat-moderação-enquetes-e-previsões)).
@@ -252,7 +253,7 @@ nas configurações. No Streamer.bot, o servidor precisa estar escutando na rede
 | Aparece "Faltam ações: …" | O Streamer.bot não tem uma ação com o nome **EXATAMENTE igual** ao da plataforma (`Painel: Twitch`, `Painel: Kick` ou `Painel: YouTube`): o programa compara letra por letra, então `Painel: Youtube`, `Painel:YouTube` ou um espaço no fim não valem. Copie o nome das Instruções, confirme com **Ok** a janela da sub-ação e espere até 15 s (o programa relê a lista a cada 15 s). O botão do aviso abre a ajuda de como criar. Se você não usa aquela plataforma, o aviso é só um lembrete. |
 | O título do YouTube não muda (e não aparece erro) | Duas causas comuns: o **Broadcast** da sub-ação `YouTube > Set Title` está em **From Variable** (troque para **All**), ou o YouTube não está conectado no Streamer.bot (a janela da sub-ação mostra **Not Connected** e o YouTube aparece desconectado na bolinha de conexões; entre em `Platforms > YouTube > Accounts`, seção 2.2). |
 | Cenas vazias, Saúde sem dados ou "Desconectado" no OBS | O servidor WebSocket do OBS está desligado, o endereço está errado ou a senha está faltando (seção 4). |
-| Alertas de seguidor da Kick não chegam | Ligue a conta da Kick também no site do Streamer.bot (**Account > Connections**), além do login no aplicativo. |
+| Mensagens ou alertas da Kick não chegam | Ligue a conta da Kick também no site do Streamer.bot (**Account > Connections**), além do login no aplicativo, e **reinicie o Streamer.bot** depois de conectar com o site. |
 | Banir, silenciar ou enviar não faz nada | A ação `Painel: Chat` não existe, não compilou ou está sem o código. Cole o código do `?` de novo e use **Save and Compile**. |
 | Desbanir ou liberar não faz nada | A `Painel: Chat` é de uma versão antiga e não tem o verbo `reverter`. Cole o código do `?` de novo. |
 | Os emotes de terceiros não aparecem | Eles precisam de internet e estar ligados nas configurações. Os emotes da Twitch e da Kick vêm junto das mensagens. |
